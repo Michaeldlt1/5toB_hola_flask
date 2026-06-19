@@ -55,7 +55,7 @@ jobs:
         script: |
           echo "conexion exitosa"
           touch ejemplo.txt
-    - name: probar conexiones ssh
+    - name: probar conexiones scp
       uses: appleboy/scp-action@v1
       with: 
         host: ${{secrets.VPS_HOST}}
@@ -65,3 +65,16 @@ jobs:
         source: "stack.yml,Makefile"
         target: "/home/${{secrets.VPS_USER}}/landingb"
     
+    - name: desplegando servicion 
+      uses: appleboy/ssh-action@v1
+      with: 
+        host: ${{secrets.VPS_HOST}}
+        username: ${{secrets.VPS_USER}}
+        password: ${{secrets.VPS_PASSWORD}}
+        port: ${{secrets.VPS_SSH_PORT}}
+        script: |
+          echo " Desplegando servicios"        
+          cd ~/landingb
+
+          docker pull ghcr.io/michaeldlt1/holaflask:1.0.0
+          docker stack deploy -c stack.yml borrar
