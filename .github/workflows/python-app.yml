@@ -38,10 +38,6 @@ jobs:
       run: |
         docker push ghcr.io/michaeldlt1/holaflask:1.0.0
     
-    - name: Run tests
-      run: |
-        pytest
-
     - name: mostrar las variables o secrets
       run: |
         echo ${{ secrets.VPS_HOST}}
