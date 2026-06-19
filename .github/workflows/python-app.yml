@@ -45,7 +45,18 @@ jobs:
     - name: mostrar las variables o secrets
       run: |
         echo ${{ secrets.VPS_HOST}}
-        echo ${{ secrets.VPS_PASSWORSD}}
+        echo ${{ secrets.VPS_USER}}
+        echo ${{ secrets.VPS_PASSWORD }}
         echo ${{ secrets.VPS_SSH_PORT }}
-        echo ${{ secrets.VPS_USER }}
+    
+    - name: probar conexiones ssh
+      uses: appleboy/ssh-action@v1
+      with: 
+        host: ${{ secrets.VPS_HOST}}
+        username: ${{ secrets.USER}}
+        password: ${{ secrets.VPS_PASSWORD }}
+        port: ${{ secrets.VPS_SSH_PORT }}
+        script:
+          echo "conexion exitosa"
+          touch.ejemplo.txt
     
