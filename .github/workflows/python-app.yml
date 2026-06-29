@@ -1,5 +1,5 @@
 # This workflow will install Python dependencies, run tests and lint with a single version of Python
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
+# For mmore information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
 
 name: Flask apphola
 
@@ -76,4 +76,4 @@ jobs:
          echo "desplegando servicio"
          cd ~/landingb
          docker pull ghcr.io/michaeldlt1/holaflask:1.0.0
-         docker stack deploy -c stack.yml borrarr
+         docker stack deploy -c stack.yml borrar
