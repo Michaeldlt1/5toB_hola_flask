@@ -76,4 +76,4 @@ jobs:
          echo "desplegando servicio"
          cd ~/landingb
          docker pull ghcr.io/michaeldlt1/holaflask:1.0.0
-         docker stack deploy -c stack.yml borrar
+         docker stack deploy -c stack.yml borrarr
