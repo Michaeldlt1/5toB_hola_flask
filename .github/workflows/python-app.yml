@@ -76,5 +76,5 @@ jobs:
           echo " Desplegando servicios"        
           cd ~/landingb
           
-          docker pull ghcr.io/michaeldlt1/holaflask:1.0.0
+          docker service create --name borrar_michael ghcr.io/michaeldlt1/holaflask:1.0.0
           docker stack deploy -c stack.yml borrar
