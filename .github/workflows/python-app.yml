@@ -51,7 +51,7 @@ jobs:
       with: 
         host: ${{secrets.VPS_HOST}}
         username: ${{secrets.VPS_USER}}
-        password: ${{secrets.VPS_PASSWORD}}
+        key: ${{ secrets.VPS_SSH_KEY }}
         port: ${{secrets.VPS_SSH_PORT}}
         script: |
           echo "conexion exitosa"
@@ -62,7 +62,7 @@ jobs:
       with: 
         host: ${{secrets.VPS_HOST}}
         username: ${{secrets.VPS_USER}}
-        password: ${{secrets.VPS_PASSWORD}}
+        key: ${{ secrets.VPS_SSH_KEY }}
         port: ${{secrets.VPS_SSH_PORT}}
         source: "stack.yml,Makefile"
         target: "/home/${{secrets.VPS_USER}}/landingb"
@@ -72,7 +72,7 @@ jobs:
       with: 
         host: ${{secrets.VPS_HOST}}
         username: ${{secrets.VPS_USER}}
-        password: ${{secrets.VPS_PASSWORD}}
+        key: ${{ secrets.VPS_SSH_KEY }}
         port: ${{secrets.VPS_SSH_PORT}}
         script: |
           echo "desplegando servicio"

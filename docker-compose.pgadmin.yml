@@ -23,8 +23,9 @@ services:
     container_name: hola-flask-pgadmin
     restart: unless-stopped
     environment:
-      PGADMIN_DEFAULT_EMAIL: admin@byronrm.com
-      PGADMIN_DEFAULT_PASSWORD: admin123
+      PGADMIN_DEFAULT_EMAIL: adminmsf@byronrm.com
+      PGADMIN_DEFAULT_PASSWORD: adminmsf12345
+      PGADMIN_CONFIG_SERVER_MODE: "True"
     ports:
       - "5050:80"
     networks:
