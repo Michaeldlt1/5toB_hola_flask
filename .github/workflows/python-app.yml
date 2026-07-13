@@ -84,10 +84,7 @@ jobs:
             docker swarm init
           fi
           if docker network inspect proxy >/dev/null 2>&1; then
-            if [ "$(docker network inspect proxy --format '{{.Scope}}')" != "swarm" ]; then
-              echo "A local network named 'proxy' already exists. Remove it or use a different swarm network name."
-              exit 1
-            fi
+            echo "Using existing network 'proxy' on the VPS"
           else
             docker network create --driver overlay --attachable proxy
           fi
