@@ -1,13 +1,11 @@
-from flask import Blueprint, flash, redirect, render_template, request, url_for
-
-from .services import UserService
+from flask import Blueprint, current_app, flash, redirect, render_template, request, url_for
 
 main_bp = Blueprint("main", __name__)
 
 
 def get_user_service(app):
     if "user_service" not in app.config:
-        app.config["user_service"] = UserService(app.config.get("USERS", []))
+        app.config["user_service"] = current_app.config.get("user_service")
     return app.config["user_service"]
 
 
