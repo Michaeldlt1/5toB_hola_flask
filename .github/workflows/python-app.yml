@@ -29,7 +29,7 @@ jobs:
 
     - name: construir la imagen de Docker
       run: |
-        docker build -t ghcr.io/michaeldlt1/holaflask:1.0.0 .
+        docker build -t ghcr.io/michaeldlt1/holaflask:1.0.0 -t ghcr.io/michaeldlt1/holaflask:latest .
 
     - name: login hacia github container registry
       run: echo ${{ secrets.TOKEN_WR }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
@@ -37,6 +37,7 @@ jobs:
     - name: publicar la imagen de Docker
       run: |
         docker push ghcr.io/michaeldlt1/holaflask:1.0.0
+        docker push ghcr.io/michaeldlt1/holaflask:latest
     
     - name: mostrar las variables o secrets
       run: |
@@ -54,7 +55,8 @@ jobs:
         port: ${{secrets.VPS_SSH_PORT}}
         script: |
           echo "conexion exitosa"
-          touch ejemplo.txt
+          mkdir -p /home/${{secrets.VPS_USER}}/landingb
+          touch /home/${{secrets.VPS_USER}}/landingb/ejemplo.txt
     - name: probar conexiones scp
       uses: appleboy/scp-action@v1
       with: 
@@ -73,7 +75,9 @@ jobs:
         password: ${{secrets.VPS_PASSWORD}}
         port: ${{secrets.VPS_SSH_PORT}}
         script: |
-         echo "desplegando servicio"
-         cd ~/landingb
-         docker pull ghcr.io/michaeldlt1/holaflask:latest
-         docker stack deploy -c stack.yml eliminar
+          echo "desplegando servicio"
+          mkdir -p /home/${{secrets.VPS_USER}}/landingb
+          cd /home/${{secrets.VPS_USER}}/landingb
+          echo "${{ secrets.TOKEN_WR }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
+          docker pull ghcr.io/michaeldlt1/holaflask:latest
+          docker stack deploy -c stack.yml eliminar
