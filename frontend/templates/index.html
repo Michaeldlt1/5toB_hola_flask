@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %}Inicio - Hola Flask{% endblock %}
+
+{% block content %}
+<section class="hero">
+  <h1>Hola Flask</h1>
+  <p>Una aplicación Flask modular con rutas separadas, un panel de usuarios y un formulario de registro.</p>
+  <div class="actions">
+    <a class="btn primary" href="{{ url_for('main.register') }}">Registrar usuario</a>
+    <a class="btn secondary" href="{{ url_for('main.dashboard') }}">Ver usuarios</a>
+  </div>
+</section>
+{% endblock %}
