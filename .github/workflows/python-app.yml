@@ -80,4 +80,7 @@ jobs:
           cd /home/${{secrets.VPS_USER}}/landingb
           echo "${{ secrets.TOKEN_WR }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
           docker pull ghcr.io/michaeldlt1/holaflask:latest
+          if ! docker info | grep -q 'Swarm: active'; then
+            docker swarm init
+          fi
           docker stack deploy -c stack.yml eliminar
