@@ -3,7 +3,7 @@ services:
   michael:
     image: ghcr.io/michaeldlt1/holaflask:latest
     networks:
-      - proxy
+      - traefik-public
     deploy:
       replicas: 1
       update_config:
@@ -13,7 +13,7 @@ services:
         condition: on-failure
     labels:
       - "traefik.enable=true"
-      - "traefik.docker.network=proxy"
+      - "traefik.docker.network=traefik-public"
       - "traefik.http.routers.michael.rule=Host(`caiza.byronrm.com`)"
       - "traefik.http.routers.michael.entrypoints=websecure"
       - "traefik.http.routers.michael.tls=true"
@@ -21,5 +21,5 @@ services:
       - "traefik.http.services.michael.loadbalancer.server.port=5000"
 
 networks:
-  proxy:
+  traefik-public:
     external: true

@@ -83,9 +83,13 @@ jobs:
           if ! docker info | grep -q 'Swarm: active'; then
             docker swarm init
           fi
-          if docker network inspect proxy >/dev/null 2>&1; then
-            echo "Using existing network 'proxy' on the VPS"
+          if docker network inspect traefik-public >/dev/null 2>&1; then
+            if [ "$(docker network inspect traefik-public --format '{{.Scope}}')" != "swarm" ]; then
+              echo "Removing local network 'traefik-public' and recreating it as a swarm-scoped network"
+              docker network rm traefik-public >/dev/null 2>&1 || true
+              docker network create --driver overlay --attachable traefik-public
+            fi
           else
-            docker network create --driver overlay --attachable proxy
+            docker network create --driver overlay --attachable traefik-public
           fi
           docker stack deploy -c stack.yml eliminar
